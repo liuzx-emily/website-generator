@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!-- style标签里的内容分别复制到2个css文件中（改url路径） -->
+    <style id="public-style"></style>
+    <style id="index-style"></style>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-powerSwitch.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/index.js"></script>
+    <title>主页</title>
+</head>
+
+<body>
+    <link rel="stylesheet" href="css/x-index.css">
+    <style id="picscroll-style"></style>
+    <script src="js/x-index.js"></script>
+    <div id="x-control-panel">
+        <div id="x-set-params">
+            <span class="x-txt">宽:</span>
+            <input type="text" value="1200" id="x-width" class="x-input_num">px
+            <span class="x-txt">层:</span>
+            <input type="text" value="4" id="x-module-num" class="x-input_num">
+            <span class="x-txt">首尾style:</span>
+            <input type="radio" value="0" name="x-header-style" checked>铺满
+            <input type="radio" value="1" name="x-header-style">定宽
+            <span class="x-txt">左栏宽:</span>
+            <input type="text" value="880" id="x-left-width" class="x-input_num">px
+            <span class="x-txt">右栏宽:</span>
+            <input type="text" value="290" id="x-right-width" class="x-input_num">px
+            <br>
+            <span class="x-txt">news详情宽:</span>
+            <input type="text" value="700" id="x-news-width-detail" class="x-input_num">px
+            <span class="x-txt">news-style1宽:</span>
+            <input type="text" value="378" id="x-news-width-1" class="x-input_num">px
+            <span class="x-txt">news-style2宽:</span>
+            <input type="text" value="420" id="x-news-width-2" class="x-input_num">px
+        </div>
+        <div id="x-control-btn">
+            <input type="button" value="初始化" id="x-init">
+            <input type="button" value="完成" id="x-done">
+        </div>
+    </div>
+    <div id="x-filling-panel">
+        <div class="x-m">
+            <input type="button" value="x" id="x-filling-close">
+            <input type="button" value="分左右" id="x-filling_btn1">
+            <br>
+            <input type="text" value="100%" id="x-holder-width">
+            <input type="text" value="220px" id="x-holder-height">
+            <input type="radio" name="x-holder-type" value="1">有标题
+            <input type="radio" name="x-holder-type" value="2" checked>无标题
+            <input type="button" value="占位框" id="x-filling_btn8">
+        </div>
+        <div class="x-left">
+            <div>
+                <img src="img/preview/banner.png" style="height:60px;top:20px;"></img>
+                (默认宽100%)
+                <input type="button" value="banner" id="x-filling_btn2">
+            </div>
+            <div>
+                <img src="img/preview/picscroll.png"></img>
+                <input type="button" value="图片轮播" id="x-filling_btn3">
+            </div>
+            <div>
+                <img src="img/preview/news-tabChange.png"></img>
+                style
+                <input type="text" value="1" id="x-news-style-type">
+                <input type="button" value="新闻-切换" id="x-filling_btn10">
+            </div>
+            <div>
+                <img src="img/preview/news.png"></img>
+                <input type="button" value="新闻-详情" id="x-filling_btn4">
+            </div>
+            <div>
+                <img src="img/preview/mix.png" style="height:50px;top:25px;"></img>
+                (默认宽100%)
+                <input type="button" value="横向图文nav" id="x-filling_btn9">
+            </div>
+            <div>
+                <img src="img/preview/link.png" style="height:50px;top:25px;"></img>
+                <input type="button" value="友情链接 (唯一)" id="x-filling_btn6">
+            </div>
+        </div>
+        <div class="x-right">
+            <div>
+                <img src="img/preview/yImage1.png" style="right:160px;"></img>
+                <img src="img/preview/yImage2.png"></img>
+                <input type="button" value="纯图nav" id="x-filling_btn5">
+                图片数<input type="text" value="5" id="x-yImage-num">
+                <br><input type="radio" name="x-yImage-type" value="2" checked>无标题
+                <input type="radio" name="x-yImage-type" value="1">有标题
+                 标题类型
+                <input type="text" value="1" id="x-yImage-title-type">
+                <br>
+            </div>
+            <div>
+                <img src="img/preview/right.png"></img>
+                <input type="button" value="纵向图文nav" id="x-filling_btn7">行数
+                <input type="text" value="5" id="x-right-num"> 标题类型
+                <input type="text" value="1" id="x-right-title-type">
+            </div>
+        </div>
+    </div>
+    <div id="x-preview">
+    </div>
+    <!-- 图片轮播详细设定 -->
+    <div id="picscroll">
+        <div class="picscroll-control">
+            <div class="picscroll-bigtitle">参数设定
+                <input type="button" value="预览" id="picscroll-preview-btn" onclick="picscroll_detail()">
+                <input type="button" value="确定" id="picscroll-render-btn" onclick="picscroll_detail(true)">
+                <input type="button" value="取消" id="picscroll-cancel-btn" onclick="picscroll_cancel()">
+            </div>
+            <div class="picscroll-module">
+                <div class="picscroll-smalltitle">整体</div>
+                <div class="picscroll-content">
+                    <span class="picscroll-txt">宽：</span>
+                    <input type="text" value="400" id="picscroll_width" class="picscroll-input_num">px
+                    <br>
+                    <span class="picscroll-txt">高：</span>
+                    <input type="text" value="300" id="picscroll_height" class="picscroll-input_num">px
+                    <br>
+                    <span class="picscroll-txt">图片个数：</span>
+                    <input type="text" value="3" id="picscroll_img_num" class="picscroll-input_num">
+                </div>
+            </div>
+            <div class="picscroll-module">
+                <div class="picscroll-smalltitle">底部栏</div>
+                <div class="picscroll-content">
+                    <span class="picscroll-txt">高度：</span>
+                    <input type="text" value="30" id="picscroll_bottom_height" class="picscroll-input_num">px
+                    <br>
+                    <span class="picscroll-txt">颜色：</span>
+                    <input type="color" value="#000000" id="picscroll_bottom_color">
+                    <br>
+                    <span class="picscroll-txt">不透明度：</span>
+                    <input type="text" value="30" id="picscroll_bottom_opacity" class="picscroll-input_num">%
+                </div>
+            </div>
+            <div class="picscroll-module">
+                <div class="picscroll-smalltitle">按钮</div>
+                <div class="picscroll-content">
+                    <span class="picscroll-txt">位置：</span>
+                    <input type="radio" value="0" name="picscroll_btns_align">左
+                    <input type="radio" value="1" name="picscroll_btns_align">中
+                    <input type="radio" value="2" name="picscroll_btns_align" checked>右
+                    <br>
+                    <span class="picscroll-txt">大小：</span>
+                    <input type="text" value="13" id="picscroll_btn_size" class="picscroll-input_num">px
+                    <br>
+                    <span class="picscroll-txt">颜色：</span>
+                    <input type="color" value="#ffffff" id="picscroll_btn_color">
+                    <br>
+                    <span class="picscroll-txt">当前颜色：</span>
+                    <input type="color" value="#0098d4" id="picscroll_btn_ccolor">
+                </div>
+            </div>
+            <div class="picscroll-module">
+                <div class="picscroll-smalltitle">标题</div>
+                <div class="picscroll-content"> 
+                    <span class="picscroll-txt">有无标题：</span>
+                    <input type="radio" value="1" name="picscroll_has_title" checked>有
+                    <input type="radio" value="" name="picscroll_has_title">无
+                    <br>
+                    <span class="picscroll-txt">位置：</span>
+                    <input type="radio" value="left" name="picscroll_title_align" checked>左
+                    <input type="radio" value="center" name="picscroll_title_align">中
+                    <input type="radio" value="right" name="picscroll_title_align">右
+                    <br>
+                    <span class="picscroll-txt">文字大小：</span>
+                    <input type="text" value="16" id="picscroll_title_size" class="picscroll-input_num">px
+                    <br>
+                    <span class="picscroll-txt">颜色：</span>
+                    <input type="color" value="#ffffff" id="picscroll_title_color">
+                </div>
+            </div>
+        </div>
+        <div id="picscroll-preview">
+            <div class="picscroll-bigtitle">效果预览</div>
+            <div class="picscroll-content"></div>
+        </div>
+    </div>
+    <!-- 遮罩层-->
+    <div id="x-cover"></div>
+</body>
+
+</html>
