@@ -2,22 +2,38 @@
 
 
 2 在index.html中生成网页，注意：
+
 	1 顶部栏中的所有值，修改后若要生效，必须点击"初始化"按钮
+
 	2 "初始化"按钮：慎点，会覆盖之前所有操作
+
 	3 "完成"按钮：慎点，点击之后，将不可再继续添加新内容
 
 
+
+
 3 完成后：
+
 	1 页面右上角点击 "完成" - "确定"
+
 	2 F12 - Copy outerHTML - 替换index.html中的内容
 	  开始处加上<!DOCTYPE html>
-	3 将head中的两个style标签中的内容，分别复制到两个css文件中
-	  css文件头加@charset="utf-8";
-	  修改两个css文件中的路径引用 url(img/) -> url(../img)
-	  在public.css中修改"header-标题大图"的高：.header .titleImg
-	4 删除："x-index.css"  "x-index.js"  "说明.txt"  "img/preview文件夹"
-	5 index.js中:
-		把"图片轮播"的js调用"放出来"
 
+	3 将head中的两个style标签中的内容，分别复制添加到两个css文件中
+	  修改两个css文件中的路径引用： url(img/   ->   url(../img 
+	  在public.css中修改"header-标题大图"的高：.header .titleImg
+
+	4 删除：
+		x-index.css
+		x-index.js
+		img/preview文件夹
+		说明.txt
+		.jshintrc
+
+	5 index.js中:
+		默认只调用了一个图片轮播的js。如果图片轮播个数多于1，则需要再添加相应js
+
+	6 list.html和detail.html中添加header和footer部分
+	  标题栏的样式可能需要换 .titlebar-style1
 		
 4 调整

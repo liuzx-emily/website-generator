@@ -49,10 +49,6 @@ function initial() {
     let index_main_style;
     let footer;
     public_style = `
-        .holder{
-            outline:1px solid black;
-        }
-        /* 上面的待删 */
         /* 下面添加到public.css后 */
         body {
             width: 100%;
@@ -63,7 +59,7 @@ function initial() {
 
 
         /* 主体 */
-        .main {
+        .main-526 {
             width: ${initial_params.width-20}px;
             background:white;
             margin: 0 auto;
@@ -244,7 +240,9 @@ function initial() {
 
         /*  news 上详情+下列表  */
         .news-detail-container{
+        	display:inline-block;
             width:${initial_params.news_detail_width}px;
+        	vertical-align:top;
         }        
         .news-detail-container>.content{
             padding:10px;
@@ -898,7 +896,7 @@ function initial() {
     // 设定main
     index_main = `
             <!-- index主体 -->
-            <div class="main index-main">`;
+            <div class="main-526">`;
     for (let i = 0; i < initial_params.module_num; i++) {
         index_main += `
             <!-- 第${i+1}层 -->
@@ -1395,6 +1393,8 @@ function picscroll_detail(done = false) {
     let preview_css=`
         /* 图片轮播${timestamp} */
         .picslide-container${timestamp}{
+        	display:inline-block;
+        	vertical-align:top;
             width: ${params.width}px;
             height: ${params.height}px;
             position: relative;
@@ -1462,6 +1462,8 @@ function picscroll_detail(done = false) {
     let css = `
         /* 图片轮播${timestamp} */
         .picslide-container${timestamp}{
+        	display:inline-block;
+        	vertical-align:top;
             width: ${params.width}px;
             height: ${params.height}px;
             position: relative;

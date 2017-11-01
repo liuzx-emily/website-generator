@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hans">
 
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/public.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/list_detail.css">
     <!-- style标签里的内容分别复制到2个css文件中（改url路径） -->
     <style id="public-style"></style>
     <style id="index-style"></style>
@@ -17,8 +18,13 @@
 
 <body>
     <link rel="stylesheet" href="css/x-index.css">
-    <style id="picscroll-style"></style>
+    <style id="picscroll-style"></style>    
     <script src="js/x-index.js"></script>
+    <style>
+        .holder{
+            outline:1px solid black;
+        }
+    </style>
     <div id="x-control-panel">
         <div id="x-set-params">
             <span class="x-txt">宽:</span>
@@ -34,11 +40,11 @@
             <input type="text" value="290" id="x-right-width" class="x-input_num">px
             <br>
             <span class="x-txt">news详情宽:</span>
-            <input type="text" value="700" id="x-news-width-detail" class="x-input_num">px
+            <input type="text" value="400" id="x-news-width-detail" class="x-input_num">px
             <span class="x-txt">news-style1宽:</span>
-            <input type="text" value="378" id="x-news-width-1" class="x-input_num">px
+            <input type="text" value="400" id="x-news-width-1" class="x-input_num">px
             <span class="x-txt">news-style2宽:</span>
-            <input type="text" value="420" id="x-news-width-2" class="x-input_num">px
+            <input type="text" value="800" id="x-news-width-2" class="x-input_num">px
         </div>
         <div id="x-control-btn">
             <input type="button" value="初始化" id="x-init">
