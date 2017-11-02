@@ -1,13 +1,13 @@
 $(function() {
-    /*当前日期*/
-    loadDateTime('today');
-    /*通知 文字滚动*/
-    ScrollLeft("", 40);
+    /* head中的显示当前日期*/
+    loadDateTime();
+    /* head中的通知滚动 */
+    scrollNotice(40);
 });
 
-/*当前日期*/
+/* head中的显示当前日期 */
 function loadDateTime(id) {
-    id = id || 'time';
+    id = id || 'today';
     var dateTime = new Date();
     var hh = dateTime.getHours();
     var mm = dateTime.getMinutes();
@@ -19,29 +19,16 @@ function loadDateTime(id) {
     var days = "日一二三四五六 ";
     $("#" + id).text("今天是：" + yy + "年" + MM + "月" + dd + "日" + "  " + "星期" + days[week]);
 }
-/*通知 文字滚动*/
-function ScrollLeft(timestamp, speed) {
+/* head中的通知滚动 */
+function scrollNotice(speed) {
     speed = 1000 / speed;
-    var container=$('.header .notice-scroll' + timestamp);
+    var container = $('.header .notice-scroll');
     if (container.length === 0) {
         return;
     }
     var scroll_begin = container.find('ul').get(0);
     var scroll_end = container.find('ul').get(1);
     var scroll_div = container.find('>div').get(0);
-
-    function Marquee() {
-        if (scroll_div.offsetWidth - scroll_begin.offsetWidth < 0) {
-            scroll_end.innerHTML = scroll_begin.innerHTML;
-        }
-
-        if (scroll_end.offsetWidth - scroll_div.scrollLeft <= 0) {
-            scroll_div.scrollLeft -= scroll_begin.offsetWidth;
-        } else {
-            scroll_div.scrollLeft++;
-        }
-
-    }
     var MyMar = setInterval(Marquee, speed);
     scroll_div.onmouseover = function() {
         clearInterval(MyMar);
@@ -49,11 +36,22 @@ function ScrollLeft(timestamp, speed) {
     scroll_div.onmouseout = function() {
         MyMar = setInterval(Marquee, speed);
     };
+
+    function Marquee() {
+        if (scroll_div.offsetWidth - scroll_begin.offsetWidth < 0) {
+            scroll_end.innerHTML = scroll_begin.innerHTML;
+        }
+        if (scroll_end.offsetWidth - scroll_div.scrollLeft <= 0) {
+            scroll_div.scrollLeft -= scroll_begin.offsetWidth;
+        } else {
+            scroll_div.scrollLeft++;
+        }
+    }
 }
-/*页签切换*/
+/* 页签切换 新闻列表/友情链接 */
 function tabsClick(widget) {
-    if(widget===undefined){
-        widget=$('.news-container');
+    if (widget === undefined) {
+        widget = $('.news-container');
     }
     if (widget.length === 0) {
         return;
@@ -70,6 +68,49 @@ function tabsClick(widget) {
             $(this).removeClass('title');
             $(this).addClass('active-title');
             content.eq(index).addClass('u-tabmain-active');
-        });  
+        });
     });
+}
+/* 标题行右侧，点击"更多"，显示div */
+function rightMore(el, left_offset) {
+    if (left_offset === undefined) {
+        left_offset = -400;
+    }
+    var obj = $(el).parents('.has-more-div').find('ul.more-div');
+    var _top = $(el).offset().top;
+    var _left = $(el).offset().left;
+    _top = parseFloat(_top) + 30;
+    _left = parseFloat(_left) + left_offset;
+    obj.css("display", "block");
+    obj.offset({ top: _top, left: _left });
+
+    obj.mouseleave(function() {
+        obj.css("display", "none");
+    });
+}
+/* 图片轮播 */
+function showAnimation(object) {
+    var htmlAdBtn = '';
+    $("#" + object.imgContentID + object.timestamp + " img").each(function(index, e) {
+        var id = "adImage_" + object.timestamp + "_" + index;
+        var indexs = parseInt(index) + 1;
+        htmlAdBtn = htmlAdBtn + '<a href="javascript:" class="picslide_btn_a' + object.timestamp + '" data-rel="' + id + '"></a>';
+        e.id = id;
+    });
+    $("#" + object.btnContentID + object.timestamp).html(htmlAdBtn).find("a").powerSwitch({
+        eventType: "hover",
+        classAdd: "active",
+        animation: "fade",
+        duration: 1000,
+        autoTime: 2000,
+        onSwitch: function(e) {
+            if (true) {
+                var index = $(this).index();
+                $("." + object.imgContentClass + object.timestamp).find("." + object.imgContentTitleClass + object.timestamp).each(function() {
+                    $(this).hide();
+                });
+                $("." + object.imgContentClass + object.timestamp).find("." + object.imgContentTitleClass + object.timestamp + ":eq(" + index + ")").show();
+            }
+        }
+    }).eq(0).trigger("mouseover");
 }

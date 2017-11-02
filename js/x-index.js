@@ -6,8 +6,8 @@ let banner_num = 0;
 let picscroll_num = 0;
 // 图片轮播 不调用js时的"纯净"html代码
 let picscroll_html = [];
-// 计数：新闻的页签切换个数
-let news_tabChange_num = 0;
+// 计数：图片滚动的个数
+let scrollImg_num=0;
 $(function() {
     /* 填充内容 事件绑定初始化 */
     filling_init();
@@ -353,7 +353,7 @@ function initial() {
             display:none;
             position: absolute;
             z-index: 999;
-            background-color: lightcyan;
+            background-color: #d4ecff;
             padding: 10px 20px;
             width:220px;
         }
@@ -361,15 +361,16 @@ function initial() {
             display: inline-block;
         }
         ul.more-div li a{
-            display:block;
+            display: block;
             width: 200px;
             font-size: 14px;
-            font-family:'宋体';
-            background-color:#00d3ff;
-            text-align:center;
+            font-family: '宋体';
+            background-color: #0094b3;
+            text-align: center;
             padding: 8px 0;
             margin: 5px;
-            border-radius:2px;
+            border-radius: 2px;
+            color: white;
         }
 
         /* 主体 右侧列图 */
@@ -398,9 +399,9 @@ function initial() {
         /* 主体 右侧图文链接  */
         .right-mix ul.content {
             width: 60%;
-            margin:0 auto;
-            border:1px solid #ddd;
+            padding: 0 20% 0 19%;
             font-size: 0;
+            border: 1px solid #eee;
         }
         .right-mix ul.content li {
             display: inline-block;
@@ -475,6 +476,78 @@ function initial() {
         }
         .index-link .u-tabmain .u-tabmain-active {
             padding: 10px 6px;
+        }
+        
+        /* 图片滚动(横向) */
+        .scrollImg-container{
+            display: block;
+            width: 1140px;
+            margin: 10px auto;            
+            position: relative;
+            border:1px solid #aaa;
+        }
+        .scrollImg-container .scrollImg-title{
+            display: inline-block;
+            width: 20px;
+            padding: 40px 15px 0 15px;
+            height:150px;
+            background:#3F51B5;
+            color:white;
+            font-size: 18px;
+            font-family: '微软雅黑';
+        }
+        .scrollImg-container .scrollImg {
+            position: absolute;
+            left: 50px;
+            right:0;
+            top:0;
+            bottom: 0;
+            margin:auto;
+            /* 宽度 > ( 图片的宽 + 图片的间距 *2 )*图片个数 时，就不滚动了 */
+            width: 1050px;
+            /* 若修改了图片的高，则必须修改 .scrollImg 的高，改成和图片的高一样*/
+            height:160px;
+            overflow: hidden;
+        }
+        .scrollImg-container .scrollImg ul>li {
+            float: left;
+            /* 图片之间的间距: 5px */
+            padding: 0 5px;
+        }
+        .scrollImg-container .scrollImg>ul li a {
+            display: block;
+            position: relative;
+        }
+        .scrollImg-container .scrollImg>ul li a img {
+            display: block;
+            /* 图片的宽 */
+            width: 200px;
+            /* 图片的高。若修改了图片的高，则必须修改 .scrollImg 的高 */
+            height: 160px;
+        }
+        .scrollImg-container .scrollImg>ul li a span.txt-cover {
+            position: absolute;
+            width: 100%;
+            height: 26px;
+            line-height: 26px;
+            left: 0;
+            bottom: 0;
+            background: black;
+            opacity: 0.5;
+            z-index: 1;
+        }
+        .scrollImg-container .scrollImg>ul li a span.txt {
+            position: absolute;
+            width: 100%;
+            height: 26px;
+            line-height: 26px;
+            left: 0;
+            bottom: 0;
+            font-size: 14px;
+            font-family: '宋体';
+            color: white;
+            text-align: center;
+            z-index: 2;
         }
         
     `;
@@ -922,8 +995,8 @@ function initial() {
     $('#index-style').html(index_style);
     /* 当前日期 */
     loadDateTime('today');
-    /* 通知 文字滚动 */
-    ScrollLeft("", 40);
+    /* head中的通知滚动 */
+    scrollNotice(40);
 }
 /* 填充内容 打开filling面板 */
 function open_filling(obj) {
@@ -978,6 +1051,9 @@ function filling_init(obj) {
     });
     $('#x-filling_btn10').click(function() {
         filling_news_tabChange();
+    });
+    $('#x-filling_btn11').click(function() {
+        filling_scrollImg();
     });
 
 }
@@ -1188,10 +1264,10 @@ function filling_yImages() {
         case "1":
             html = `
                 <!-- 右侧纵向图文导航 有标题 -->
-                <div class="yImages yImages-type1">
+                <div class="yImages yImages-type1 has-more-div">
                     <div class="titlebar-style${title_type}">
                         <span class="active-title"><i></i>标题</span>
-                        <a href="javascript:void(0)" class="more" onclick="right_more(this,$(this).parents('.yImages-type1').find('ul.more-div'))">更多&gt;&gt;</a>
+                        <a href="javascript:void(0)" class="more" onclick="rightMore(this)">更多&gt;&gt;</a>
                     </div>
                     <ul class="content">
                     `;
@@ -1261,10 +1337,10 @@ function filling_rightnav() {
     let current = 1;
     let html = `
     <!-- 右侧 图文nav -->
-    <div class="right-mix">
+    <div class="right-mix has-more-div">
         <div class="titlebar-style${title_type}">
             <span class="active-title"><i></i>标题</span>
-            <a href="javascript:void(0)" class="more" onclick="right_more(this,$(this).parents('.right-mix').find('ul.more-div'))">更多&gt;&gt;</a>
+            <a href="javascript:void(0)" class="more" onclick="rightMore(this)">更多&gt;&gt;</a>
         </div>
         <ul class="content">`;
     for (let i = 0; i < num; i++) {
@@ -1288,7 +1364,6 @@ function filling_rightnav() {
     </div>`;
     current_div.html(current_div.html() + html);
 }
-
 /* 填充内容 占位框 */
 function filling_holder() {
     let w = $('#x-holder-width').val();
@@ -1311,9 +1386,60 @@ function filling_holder() {
             break;
     }
 
-    current_div.html(current_div.html() + html);
+    current_div.append(html);
 }
-
+/* 填充内容 横向图片滚动 */
+function filling_scrollImg(){
+    scrollImg_num++;
+    var html=`
+    <div class="scrollImg-container">
+        <div class="scrollImg-title">标题</div>
+        <div id="scrollImg${scrollImg_num}" class="scrollImg">
+            <ul>
+                <li>
+                    <a href="javascript:void(0)">
+                        <img src="img/1.jpg"></img>
+                        <span class="txt-cover"></span>
+                        <span class="txt">标题</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <img src="img/2.jpg"></img>
+                        <span class="txt-cover"></span>
+                        <span class="txt">标题</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <img src="img/3.jpg"></img>
+                        <span class="txt-cover"></span>
+                        <span class="txt">标题</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <img src="img/4.jpg"></img>
+                        <span class="txt-cover"></span>
+                        <span class="txt">标题</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <img src="img/5.jpg"></img>
+                        <span class="txt-cover"></span>
+                        <span class="txt">标题</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>`;
+    current_div.append(html);
+    $(`#scrollImg${scrollImg_num}`).kxbdMarquee({
+        direction: "left",
+        scrollAmount: 2,
+    });
+}
 /* 整理代码 */
 function code_clean() {
     let html = $('#x-preview').html();
@@ -1325,7 +1451,8 @@ function code_clean() {
     $('.add-btn').remove();
     // 重新绑定js
     loadDateTime('today');
-    ScrollLeft("", 40);
+    // head中的通知滚动
+    scrollNotice(40);
     tabsClick($('.link'));
     // 为了获得clean的html代码 图片轮播不再重新绑定
     // 页签切换不再重新绑定

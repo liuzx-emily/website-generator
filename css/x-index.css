@@ -63,12 +63,10 @@ input.x-input_num {
     top: 4%;
     bottom: 50px;
     background-color: rgba(0, 0, 0, 0.95);
-    /*background-color: white;*/
     border:8px solid #333;
     display: none;
     z-index: 999;
     color: white;
-    /*color: black;*/
     font-size: 0;
     overflow: auto;
 }
@@ -100,10 +98,11 @@ input.x-input_num {
 #x-filling-panel .x-left img{
     position: absolute;
     left: 5px;
-    top: 5px;
-    height: 85px;
     vertical-align: middle;
     z-index: -1;
+    width: 320px;
+    height: 80px;
+    top: 8px;
 }
 #x-filling-panel .x-right>div{
     position: relative;
@@ -169,6 +168,9 @@ input.x-input_num {
 }
 
 
+.holder{
+    outline:1px solid black;
+}
 
 /*图片轮播 具体设置*/
 #picscroll{

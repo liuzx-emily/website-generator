@@ -10,7 +10,10 @@
     <style id="public-style"></style>
     <style id="index-style"></style>
     <script src="js/jquery.min.js"></script>
+    <!-- 图片轮播 -->
     <script src="js/jquery-powerSwitch.js"></script>
+    <!-- 图片滚动 -->
+    <script src="js/jquery.kxbdMarquee.js"></script>
     <script src="js/public.js"></script>
     <script src="js/index.js"></script>
     <title>主页</title>
@@ -20,11 +23,6 @@
     <link rel="stylesheet" href="css/x-index.css">
     <style id="picscroll-style"></style>    
     <script src="js/x-index.js"></script>
-    <style>
-        .holder{
-            outline:1px solid black;
-        }
-    </style>
     <div id="x-control-panel">
         <div id="x-set-params">
             <span class="x-txt">宽:</span>
@@ -64,12 +62,12 @@
         </div>
         <div class="x-left">
             <div>
-                <img src="img/preview/banner.png" style="height:60px;top:20px;"></img>
+                <img src="img/preview/banner.png"></img>
                 (默认宽100%)
                 <input type="button" value="banner" id="x-filling_btn2">
             </div>
             <div>
-                <img src="img/preview/picscroll.png"></img>
+                <img src="img/preview/picscroll.png" style="width:150px;"></img>
                 <input type="button" value="图片轮播" id="x-filling_btn3">
             </div>
             <div>
@@ -83,13 +81,17 @@
                 <input type="button" value="新闻-详情" id="x-filling_btn4">
             </div>
             <div>
-                <img src="img/preview/mix.png" style="height:50px;top:25px;"></img>
-                (默认宽100%)
-                <input type="button" value="横向图文nav" id="x-filling_btn9">
+                <img src="img/preview/link.png"></img>
+                <input type="button" value="友情链接 (唯一)" id="x-filling_btn6">
             </div>
             <div>
-                <img src="img/preview/link.png" style="height:50px;top:25px;"></img>
-                <input type="button" value="友情链接 (唯一)" id="x-filling_btn6">
+                <img src="img/preview/scrollImg.png"></img>
+                <input type="button" value="图片滚动" id="x-filling_btn11">
+            </div>
+            <div>
+                <img src="img/preview/mix.png"></img>
+                (默认宽100%)
+                <input type="button" value="横向图文nav" id="x-filling_btn9">
             </div>
         </div>
         <div class="x-right">
