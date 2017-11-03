@@ -49,19 +49,26 @@ function scrollNotice(speed) {
     }
 }
 /* 页签切换 新闻列表/友情链接 */
-function tabsClick(widget) {
+function tabsClick(widget,eventName) {
+    // tab:
+    //  当前：.active-title
+    //  其他：.title
+    // content:
+    //  当前：.u-tabmain-active
+    //  其他：无class
+
     if (widget === undefined) {
         widget = $('.news-container');
     }
-    if (widget.length === 0) {
-        return;
+    if (eventName === undefined) {
+        eventName ='click';
     }
     widget.each(function(index, el) {
-        var tabs = $(el).find('.u-tabnav > li'),
-            content = $(el).find('.u-tabmain > div');
-        tabs.on('click', function(e) {
+        var tabs = $(el).find('.u-tabnav > li');
+        var content = $(el).find('.u-tabmain > div');
+        tabs.on(eventName, function(e) {
             e.preventDefault();
-            var index = $(this).data('index');
+            var index = $(this).index();
             tabs.removeClass('active-title');
             tabs.addClass('title');
             content.removeClass('u-tabmain-active');

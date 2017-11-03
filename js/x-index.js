@@ -1141,14 +1141,13 @@ function filling_news_detail() {
 /* 填充内容 news */
 function filling_news_tabChange() {
     let style_type = $('#x-news-style-type').val();
-    news_tabChange_num++;
     let html = `
             <!-- 新闻列表（带切换功能） -->
             <div class="news-container news-style${style_type}">
                 <div class="titlebar-style1">
                     <ul class="u-tabnav">
-                        <li data-index="0" class="active-title"><i></i>news1</li>
-                        <li data-index="1" class="title"><i></i>news2</li>
+                        <li class="active-title"><i></i>news1</li>
+                        <li class="title"><i></i>news2</li>
                     </ul>
                 </div>
                 <div class="content u-tabmain">
@@ -1311,8 +1310,8 @@ function filling_link() {
         <div class="index-link">
             <div class="static-title">友情链接</div>
             <ul class="u-tabnav">
-                <li data-index="0" class="active-title">友情链接1</li>
-                <li data-index="1" class="title">友情链接2</li>
+                <li class="active-title">友情链接1</li>
+                <li class="title">友情链接2</li>
             </ul>
             <div class="u-tabmain">
                 <div class="u-tabmain-active">
